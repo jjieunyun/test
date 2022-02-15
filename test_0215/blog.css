@@ -1,0 +1,61 @@
+body {
+    margin: 0px;
+}
+
+header {
+    background-color: coral;
+    text-align: center;
+    padding: 10px;
+}
+
+ul {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 5px;
+    
+    
+}
+
+.menu > a:link, a:visited {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div {
+    clear: both;
+    
+}
+
+
+@media screen and (min-width : 600px)  {
+
+    section {
+        display: grid;
+        height: auto;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding-left: 10px;
+    }
+
+}
+
+.post, .notice {
+    background-color: beige;
+    height: 400px;
+}
+
+.post > h3, .notice > h3 {
+    text-align: center;
+    border-bottom: 1px dashed gray;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin: 0px;
+}
+
+.post > p, .notice > p {
+    padding-left: 20px;
+}
+
