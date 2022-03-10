@@ -1,0 +1,9 @@
+.todo {
+    list-style-type:none;
+}
+
+ul li {
+    border-bottom: white 1px solid;
+    margin-top: 15px;
+    margin-right: 30px;
+}
