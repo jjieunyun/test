@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>넌센스 Quiz</title>
+    <!--Jquery-->
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <style>
+        body {
+            text-align: center;
+        }
+
+        h1 {color: blue; margin-top: 40px;}
+
+        #start {
+            font-size: 1.2em; color: white; background-color: darkorange;
+            border: none; padding: 10px; border-radius: 10px;
+        }
+    </style>
+    
+
+</head>
+<body>
+    <h1>넌센스 Quiz 맞추기</h1>
+        <p>3문제, 중복없음</p>
+        <button id="start">시작</button>
+        <h3 id="quiz"></h3>
+    
+        <!--form을 사용하게되면 submit이벤트 사용가능함-->
+    <form id="input_form" style="display:none;">
+        <!--JQuery에서 show,hide 기능을 사용하기 위해서는 form스타일 속성 display:none-->
+        <input type="text">
+    </form>
+    <p id="score"></p>
+
+    <script>
+                //사용되는 변수들
+
+        let score = 0;
+        let count = 0;     
+        const quizeArray = [
+                {quiz:"뽑으면 우는 식물은?",answer:"우엉"},
+                {quiz:"소가 웃으면?",answer:"우하하"},
+                {quiz:"세상에서 가장 착한 사자는?",answer:"자원봉사자"},
+                {quiz:"바나나가 웃으면?",answer:"바나나킥"},
+                {quiz:"신데렐라가 잠을 못 자면?",answer:"모짜렐라"}
+            ];
+
+        let newQuiz = [];
+
+        //0. input_text 맨 처음에 숨기기
+        $("#input_text").hide();
+        //1. 시작을 눌렀을 때, 입력란 보이고 문제출력
+        $("#start").on("click", function(e){
+            e.preventDefault();  //새로고침 막기
+            $("#score").text("");
+            $("#input_form").slideDown();
+            $("#input_form").children().first().focus();  //input text
+            
+
+            function quizeStart () {
+            while(quizeArray.length > 3) {
+            let moveQuiz = quizeArray.splice(Math.floor(Math.random() * quizeArray.length),1)[0];
+            newQuiz.push(moveQuiz)
+        } 
+    };
+    quizeStart();
+            const answer = newQuiz[count].answer;
+            const $user = $("#input_form").children().first().val();
+            switch(count) {
+                case "0" :
+                console.log(newQuiz[0].quiz);
+                $("#input_form").on("submit")
+                count++;
+
+                if($user == answer) {
+                score++;
+                $("#score").text(`${score}점 입니다.`);
+            }
+                break;
+            
+
+            case "1" :
+                console.log(newQuiz[1].quiz);
+                count++;
+
+                if($user == answer) {
+                score++;
+                $("#score").text(`${score}점 입니다.`);
+            }
+                break;
+            
+
+            case "2" : 
+                console.log(newQuiz[2].quiz);
+                count++;
+
+                if($user == answer) {
+                score++;
+                $("#score").text(`${score}점 입니다.`);
+            }
+                break;
+            
+
+            case "3" : 
+                $("#input_form").hide();   //입력창 멈추기
+                $("#quiz").text("");   //텍스트 없애기
+                count = 0;
+                score = 0;
+                break;
+        }});
+
+       
+        
+
+    </script>
+
+</body>
+</html>

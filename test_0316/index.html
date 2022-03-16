@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>넌센스 Quiz</title>
-    <!--Jquery-->
+    <title>넌센스quiz</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!--CSS-->
     <style>
         body {
             text-align: center;
@@ -19,52 +17,59 @@
             font-size: 1.2em; color: white; background-color: darkorange;
             border: none; padding: 10px; border-radius: 10px;
         }
-    </style>
 
+        #score {
+            font-size: 1.2em; font-weight: bold; 
+        }
+    </style>
 </head>
 <body>
     <h1>넌센스 Quiz 맞추기</h1>
-        <p>3문제, 중복있음</p>
-        <button id="start">시작</button>
-        <h3 id="quiz"></h3>
-    
-        <!--form을 사용하게되면 submit이벤트 사용가능함-->
+    <p style="color: rgb(54, 53, 53)">(3문제, 중복있음)</p>
+    <button id="start">시작</button>
+    <h2 id="quiz"></h2>
+    <!--form을 사용하게되면 submit이벤트 사용가능함-->
     <form id="input_form" style="display:none;">
         <!--JQuery에서 show,hide 기능을 사용하기 위해서는 form스타일 속성 display:none-->
         <input type="text">
     </form>
     <p id="score"></p>
+    <p id="startTime" hidden></p>
+    <p id="endTime" hidden></p>
+    <p id="time"></p>
 
     <script>
         //사용되는 변수들
         let score = 0;
         let count = 0;     //문제를 몇 번풀었는지 확인하기 위함
+        let randomNum = 0; //문제를 랜덤으로 출력하기 위한 변수
         const quizeArray = [
-                {quiz:"뽑으면 우는 식물은?",answer:"우엉"},
-                {quiz:"소가 웃으면?",answer:"우하하"},
-                {quiz:"세상에서 가장 착한 사자는?",answer:"자원봉사자"},
-                {quiz:"바나나가 웃으면?",answer:"바나나킥"},
-                {quiz:"신데렐라가 잠을 못 자면?",answer:"모짜렐라"}
+                {quiz:"13 + 50",answer:"63"},
+                {quiz:"10 - 1",answer:"9"},
+                {quiz:"110 + 10",answer:"120"},
+                {quiz:"0 x 36",answer:"0"}
             ];
-
+        
         //0. input_text 맨 처음에 숨기기
         $("#input_text").hide();
-
+        
         //1. 시작을 눌렀을 때, 입력란 보이고 문제출력
         $("#start").on("click", function(e){
             e.preventDefault();  //새로고침 막기
-
             quizeStart();
+            start();
+
             $("#score").text("");
+            $("#time").text("");
             $("#input_form").slideDown();
             $("#input_form").children().first().focus();  //input text
-        
+            
         });
         
         //2. submit이벤트가 발생하면 input값 비교
         $("#input_form").on("submit", function(e){
             e.preventDefault();   //새로고침 막기
-            const answer = newQuiz[i].answer;
+            const answer = quizeArray[randomNum].answer;
             const $user = $("#input_form").children().first().val();
             //.prop("value")  or .val() 둘 중에 암꺼나 써도됨. form태그라서
             count++;  //문제의 횟수를 증가시킴
@@ -86,22 +91,35 @@
                 $("#quiz").text("");   //텍스트 없애기
                 count = 0;
                 score = 0;
+                end();
             }
         });
     
         //3. 랜덤퀴즈 동작함수
+        function quizeStart () {
+            randomNum = Math.floor(Math.random() * quizeArray.length);
+            $("#quiz").text(quizeArray[randomNum].quiz);
+        }
+        
 
-            function quizeStart () {
-            let newQuiz = [];
-                while(quizeArray.length > 3) {
-                let moveQuiz = quizeArray.splice(Math.floor(Math.random() * quizeArray.length),1)[0].quiz;
-                newQuiz.push(moveQuiz)
-            }
-                for (let i=0;i<newQuiz.length;i++){
-                    $("#quiz").text(newQuiz[i]);
-                } 
-            } 
+        //4. 타이머 동작함수
+        //시작시 밀리초, 함수종료시 밀리초를 각 p태그에 저장하고 
+        //마지막 답안이 submit되면 두 시간의 차이를 초로 환산하여 P태그에 출력
+        function start () {
+            let startTime = new Date().getTime();
+            $("#startTime").text(startTime);
+        }
+
+        function end () {
+            let endTime = new Date().getTime();
+            $("#endTime").text(endTime);
+
+            let startNum = $("#startTime").text();
+            let endNum = $("#endTime").text();
+            $("#time").text("(소요시간 : "+Math.floor((endNum-startNum)/1000) + "초)");
+        }
+
+        
     </script>
-
 </body>
 </html>
