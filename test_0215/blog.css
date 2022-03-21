@@ -26,9 +26,13 @@ ul {
 
 div {
     clear: both;
+    padding: 3px;
     
 }
 
+.class_1 {
+    border: 2px solid gray;
+}
 
 @media screen and (min-width : 600px)  {
 
@@ -41,6 +45,7 @@ div {
     }
 
 }
+
 
 .post, .notice {
     background-color: beige;

@@ -33,10 +33,10 @@
         <!--JQuery에서 show,hide 기능을 사용하기 위해서는 form스타일 속성 display:none-->
         <input type="text">
     </form>
-    <p id="score"></p>
-    <p id="startTime" hidden></p>
-    <p id="endTime" hidden></p>
-    <p id="time"></p>
+        <p id="score"></p>
+        <p id="startTime" hidden></p>
+        <p id="endTime" hidden></p>
+        <p id="time"></p>
 
     <script>
         //사용되는 변수들
@@ -116,9 +116,15 @@
 
             let startNum = $("#startTime").text();
             let endNum = $("#endTime").text();
-            $("#time").text("(소요시간 : "+Math.floor((endNum-startNum)/1000) + "초)");
+            $("#time").text("(소요시간 : "+ Math.floor((endNum-startNum)/1000) + "초)");
         }
 
+        timeId = setInterval(() => (
+            second++;
+            end = Date.now()
+
+            $("#timer").text(`${Math.floor((endNum-startNum)/1000)}`)
+        ));
         
     </script>
 </body>
