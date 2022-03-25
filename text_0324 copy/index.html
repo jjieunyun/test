@@ -70,17 +70,7 @@
             <input type="submit" class="add" value="추가">
         </form>
 
-        <!--<form @submit.prevent="addMemo">-->
-
-        <!--메모컴포넌트 추가-->
-        <!--v-bind에 id있는거는 삭제할때 쓸려고 가져옴-->
-        <!--slot설명 추가 : 
-            값만 바뀌는 부분을 slot을 이용하여 재사용
-            이름없는 슬롯에 접근할때는 v-slot만 작성하면된다.
-            v-slot:이름대신 slot="이름"을 사용해도 동일함-->
-        <!--속성명에다가 ""만쓰면 문자열로 들어감-->
-        <memo-component v-for="m in memolist" v-bind:id="m.id" 
-        v-bind:key="m.index" @delete="deleteMemo">
+        <memo-component v-for="m in memolist" memolist="popsMemolist"  v-bind:id="m.id" v-bind:key="m.id">
             <template v-slot:title>{{m.title}}</template>
             <template v-slot:memo>{{m.memo}}</template>
         </memo-component>

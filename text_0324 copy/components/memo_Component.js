@@ -1,8 +1,8 @@
 Vue.component('memo-component',{
-    props : [ 'id' ], //삭제할 때 자신이 어떤 위치를 가지고 있는지 알려주는 역할
+    props : { popsMemolist:Array }, //삭제할 때 자신이 어떤 위치를 가지고 있는지 알려주는 역할
     template : 
     `<div class="page">
-        <h3 class="title"> <button class="btn" @click="deletememo">x</button>
+        <h3 class="title"> <button class="btn" >x</button>
             <slot name="title"></slot>
         </h3>
         <p><slot name="memo"></slot><p>
@@ -11,14 +11,16 @@ Vue.component('memo-component',{
     </div>`,
     data () {
         return {
-            
+
         }
     },
     methods : {
-        deletememo () {
-            //props로 받아온 id값을 이벤트와 함께 인수로 보냄
-            this.$emit('delete',this.id)
-        }
+        /*deletememo (e) {
+            const index = e.target.getAttribute('index');
+            .splice(index,1)*/
+        
+            
+    
     },
     computed : {
         time() {
