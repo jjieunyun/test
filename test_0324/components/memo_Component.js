@@ -1,11 +1,11 @@
 Vue.component('memo-component',{
-    props : [ 'id' ], //삭제할 때 자신이 어떤 위치를 가지고 있는지 알려주는 역할
+    props : [ 'title','memo', 'id' ],
     template : 
     `<div class="page">
         <h3 class="title"> <button class="btn" @click="deletememo">x</button>
-            <slot name="title"></slot>
+            <slot name="title1">{{title}}</slot>
         </h3>
-        <p><slot name="memo"></slot><p>
+        <p><slot name="memo1">{{memo}}</slot><p>
     <hr style="border: solid 1px salmon">
         <p class="time">{{time}}</p>
     </div>`,
@@ -16,7 +16,6 @@ Vue.component('memo-component',{
     },
     methods : {
         deletememo () {
-            //props로 받아온 id값을 이벤트와 함께 인수로 보냄
             this.$emit('delete',this.id)
         }
     },
@@ -28,21 +27,3 @@ Vue.component('memo-component',{
         },
     }
 });
-
-/*
-computed에 newDate객체를 생성하지 않고 아래와 같이 data에 생성해서
-this.를 사용하는 방법으로 
-사용할 수 있음
-data () {
-    return {
-        
-    }
-},
-computed : {
-    fomatTime () {
-        return this.time,getUTCFullYear() + '년'
-    }
-}
-
-
-*/

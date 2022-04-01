@@ -61,18 +61,16 @@
     <div id="app">
         <!--화면 출력요소-->
         <h1 id="page_title" style="color:salmon">MEMO</h1>
+        <label for="" style="padding-left: 50px;color:salmon">Title : </label>
+        <input class="text_input" type="text" v-model="title"><br>
+        <textarea cols="45" rows="10" v-model="memo"></textarea>
+        <button  @click="addMemo" class="add">추가</button>
 
-        <!--submit event는 반드시 form태그에 달아서 전달해야한다-->
-        <form @submit.prevent="addMemo">
-            <label for="" style="padding-left: 50px;color:salmon">Title : </label>
-            <input class="text_input" type="text" v-model="title"><br>
-            <textarea cols="45" rows="10" v-model="memo"></textarea>
-            <input type="submit" class="add" value="추가">
-        </form>
-
-        <memo-component v-for="m in memolist" memolist="popsMemolist"  v-bind:id="m.id" v-bind:key="m.id">
-            <template v-slot:title>{{m.title}}</template>
-            <template v-slot:memo>{{m.memo}}</template>
+        <!--메모컴포넌트 추가-->
+        <memo-component v-for="m in memolist" v-bind:id="m.id" 
+        v-bind:key="m.index" @delete="deleteMemo">
+            <template v-slot:title1>{{m.title}}</template>
+            <template v-slot:memo1>{{m.memo}}</template>
         </memo-component>
 
     </div>
